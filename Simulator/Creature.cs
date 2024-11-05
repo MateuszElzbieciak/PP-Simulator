@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Simulator;
 
-public class Creature
+public abstract class Creature
 {
     // Properties
     private string name = "Unknown";
@@ -65,7 +65,8 @@ public class Creature
 
 
     // Methods
-    public void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+ public abstract void SayHi();
+        public abstract int Power { get; }
 
     public string Info => $"{Name} [{Level}]";
     public void Upgrade()
