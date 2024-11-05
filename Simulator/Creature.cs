@@ -1,60 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
 namespace Simulator;
 
 public abstract class Creature
 {
-    // Properties
     private string name = "Unknown";
-    public string Name 
+    public string Name
     {
         get => name;
-        init
-        {
-            value = value.Trim();
-            if (value.Length > 25)
-            {
-                value = value.Substring(0, 25).TrimEnd();
-            }
-            if (value.Length < 3)
-            {
-                value = value.PadRight(3, '#');
-            }
-            if (char.IsLower(value[0]))
-            {
-                value = char.ToUpper(value[0]) + value.Substring(1);
-            }
-            name = value;
-        }
+        init => name = Validator.Shortener(value, 3, 25);
     }
 
-
-
-    private int level = 1; // Fix ????
+    private int level = 1;
     public int Level
     {
         get => level;
-        init
-        {
-            if (value < 1)
-            {
-                value = 1;
-            }
-            else if (value > 10)
-            {
-                value = 10;
-            }
-            level = value;
-        }
+        private set => level = Validator.Limiter(value, 1, 10);
     }
 
-
-    // Constructors
     public Creature(string name, int level = 1)
     {
         Name = name;
@@ -62,26 +23,23 @@ public abstract class Creature
     }
 
     public Creature() { }
+    public abstract void SayHi();
+    public abstract int Power { get; }
 
-
-    // Methods
- public abstract void SayHi();
-        public abstract int Power { get; }
-
-    public string Info => $"{Name} [{Level}]";
     public void Upgrade()
     {
-        if (level < 10)
-        {
-            level++;
-        }
+        Level = Validator.Limiter(level + 1, 1, 10);
     }
-    // Takes one parameter (Up, Right, Down, Left)
+
+    public abstract string Info { get; }
+    public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
+
+
     public void Go(Direction direction)
     {
-        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
+        Console.WriteLine($"{name} goes {direction.ToString().ToLower()}.");
     }
-    // Takes an array of parameters
+
     public void Go(Direction[] directions)
     {
         foreach (var direction in directions)
@@ -89,10 +47,10 @@ public abstract class Creature
             Go(direction);
         }
     }
-    // Takes a string of parameters
+
     public void Go(string directions)
     {
-        Direction[] parsedDirections = DirectionParser.Parse(directions);
+        var parsedDirections = DirectionParser.Parse(directions);
         Go(parsedDirections);
     }
 }
