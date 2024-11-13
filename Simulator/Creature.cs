@@ -40,12 +40,14 @@ public abstract class Creature
         Console.WriteLine($"{name} goes {direction.ToString().ToLower()}.");
     }
 
-    public void Go(Direction[] directions)
+    public string[] Go(Direction[] directions)
     {
-        foreach (var direction in directions)
+        var result = new string[directions.Length];
+        for (int i = 0; i < directions.Length; i++)
         {
-            Go(direction);
+            result[i] = Go(directions[i]);
         }
+        return result;
     }
 
     public void Go(string directions)
