@@ -1,4 +1,4 @@
-namespace Simulator;
+﻿namespace Simulator;
 
 public static class Validator
 {
@@ -17,7 +17,7 @@ public static class Validator
         }
         else if (trimmed.Length > max)
         {
-            trimmed = trimmed.Substring(0, max);
+            trimmed = trimmed[..max];
         }
 
         if (!char.IsUpper(trimmed[0]))

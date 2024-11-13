@@ -1,12 +1,17 @@
-  private string description = "Unknown";
+﻿namespace Simulator;
+
+public class Animals
+{
+    private string description = "Unknown";
     public required string Description
-    {get => description;
+    {
+        get => description;
         init => description = Validator.Shortener(value, 3, 15);
     }
-	public virtual string Info => $"{Description} <{Size}>";
+    public virtual string Info => $"{Description} <{Size}>";
     public override string ToString()
-    {       
-		return $"{GetType().Name.ToUpper()}: {Info}";
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
     }
     public uint Size { get; set; } = 3;
 }

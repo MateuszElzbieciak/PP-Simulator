@@ -1,4 +1,4 @@
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Rectangle
 {
@@ -30,9 +30,9 @@ public class Rectangle
     }
     public Rectangle(Point p1, Point p2) { this.X1 = p1.X; this.Y1 = p1.Y; this.X2 = p2.X; this.Y2 = p2.Y; }
     public bool Contains(Point point) 
-    {
+        {
         return point.X >= X1 && point.Y >= Y1 && point.X <= X2 && point.Y <= Y2;
-    }
+        }
     public override string ToString() => $"({X1}, {Y1}):({X2}, {Y2})";
 
 

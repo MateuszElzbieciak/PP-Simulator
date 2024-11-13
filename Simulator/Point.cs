@@ -1,4 +1,4 @@
-namespace Simulator;
+﻿namespace Simulator;
 
 public readonly struct Point
 {

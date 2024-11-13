@@ -1,4 +1,5 @@
-namespace Simulator;
+﻿namespace Simulator;
+
 public class Birds : Animals
 {
     public bool CanFly {  get; set; } = true;

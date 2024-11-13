@@ -1,4 +1,4 @@
-namespace Simulator.Maps;
+﻿namespace Simulator.Maps;
 
 /// <summary>
 /// Map of points.
