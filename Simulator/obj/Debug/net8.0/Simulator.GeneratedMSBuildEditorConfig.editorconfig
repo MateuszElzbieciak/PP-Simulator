@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Simulator
-build_property.ProjectDir = C:\Users\s-A301-25.CAMPUS.006\Desktop\PP-Simulator\Simulator\
+build_property.ProjectDir = /Users/mac/RiderProjects/PP-Simulator/Simulator/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
