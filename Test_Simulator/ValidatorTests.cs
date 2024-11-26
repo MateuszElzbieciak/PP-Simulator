@@ -5,33 +5,27 @@ namespace TestSimulator;
 public class ValidatorTests
 {
     [Theory]
-    [InlineData(5, 0, 10, 5)]
-    [InlineData(-5, 0, 10, 0)]
-    [InlineData(15, 0, 10, 10)]
-    [InlineData(0, 0, 10, 0)]
-    [InlineData(10, 0, 10, 10)]
-    public void Limiter_ShouldReturnClampedValue(int value, int min, int max, int expected)
+    [InlineData(50, 0, 50, 50)]
+    [InlineData(5, 10, 20, 10)]
+    [InlineData(25, 10, 20, 20)]
+    [InlineData(15, 10, 20, 15)]
+
+    public void Limiter_ChecksCorrectReturnedValue(int value, int min, int max, int outcome)
     {
-        // Act
-        var result = Validator.Limiter(value, min, max);
-
-        // Assert
-        Assert.Equal(expected, result);
+        var limiter = Validator.Limiter(value, min, max);
+        Assert.Equal(limiter, outcome);
     }
-
     [Theory]
-    [InlineData("test", 5, 10, '#', "Test#")]
-    [InlineData("example text", 5, 10, '#', "Example te")]
-    [InlineData("Test", 4, 8, '#', "Test")]
-    [InlineData(" lowerCase ", 5, 15, '#', "LowerCase")]
-    [InlineData("Single", 5, 6, '#', "Single")]
-    [InlineData(" ", 3, 5, '#', "###")]
-    public void Shortener_ShouldReturnCorrectString(string value, int min, int max, char placeholder, string expected)
+    [InlineData("123456", 9, 10, '#', "123456###")]
+    [InlineData("short", 10, 15, '#', "Short#####")]
+    [InlineData("perfect", 5, 10, '#', "Perfect")]
+    [InlineData("toolongvalue", 5, 10, '#', "Toolongval")]
+    [InlineData("   123", 6, 10, '#', "123###")]
+    [InlineData("A             B", 3, 10, '#', "A##")]
+    public void Shortener_ChecksCorrectReturnedValue(string value, int min, int max, char placeholder , string outcome)
     {
-        // Act
-        var result = Validator.Shortener(value, min, max, placeholder);
-
-        // Assert
-        Assert.Equal(expected, result);
+        var s = Validator.Shortener(value, min, max, placeholder);
+        Assert.Equal(s, outcome);
     }
+
 }
