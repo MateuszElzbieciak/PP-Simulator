@@ -7,12 +7,39 @@ namespace Simulator.Maps;
 /// </summary>
 public abstract class Map
 {
-    //Add(Creature, Point)
-    //Remove(Creature, Point)
-    
-    //Move()
-    
-    //At(Point) albo x, y
+    public int SizeX { get; }
+    public int SizeY { get; }
+    protected abstract List<Creature>?[,] Fields { get; }
+    private Rectangle _bounds;
+    public void Add(Creature creature, Point point)
+    {
+        if (!Exist(point))
+            throw new ArgumentException($"{point} is out of bounds.");
+        Fields[point.X, point.Y] ??= new List<Creature>();
+        Fields[point.X, point.Y]?.Add(creature);
+    }
+    public void Remove(Creature creature, Point point)
+    {
+        if (Fields[point.X, point.Y] != null)
+        {
+            Fields[point.X, point.Y]?.Remove(creature);
+            if (Fields[point.X, point.Y]?.Count == 0)
+                Fields[point.X, point.Y] = null;
+        }
+    }
+    public void Move(Creature creature, Point from, Point to)
+    {
+        Remove(creature, from);
+        Add(creature, to);
+    }
+    public List<Creature> At(Point point)
+    {
+        return Fields[point.X, point.Y] ?? new List<Creature>();
+    }
+    public List<Creature> At(int x, int y)
+    {
+        return At(new Point(x, y));
+    }
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5 || sizeY < 5) throw new ArgumentOutOfRangeException(nameof(sizeX), "Map too small");

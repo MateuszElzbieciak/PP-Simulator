@@ -8,34 +8,31 @@ public class SmallSquareMapTests
     [Fact]
     public void Constructor_ValidSize_ShouldSetSize()
     {
-        // Arrange
-        int size = 10;
-
-        // Act
-        var map = new SmallSquareMap(size);
-
-        // Assert
-        Assert.Equal(size, map.Size);
+        int sizeX = 10;
+        int sizeY = 10;
+        var map = new SmallSquareMap(sizeX, sizeY);
+        Assert.Equal(sizeX, map.SizeX);
+        Assert.Equal(sizeY, map.SizeY);
     }
 
     [Theory]
-    [InlineData(4)]
-    [InlineData(21)]
-    public void Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException(int size)
+    [InlineData(4, 4)]
+    [InlineData(21, 21)]
+    public void Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException(int sizeX, int sizeY)
     {
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(size));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(sizeX, sizeY));
     }
 
     [Theory]
-    [InlineData(3, 4, 5, true)]
-    [InlineData(6, 1, 5, false)]
-    [InlineData(19, 19, 20, true)]
-    [InlineData(20, 20, 20, false)]
-    public void Exist_ShouldReturnCorrectValue(int x, int y, int size, bool expected)
+    [InlineData(3, 4, 5, 5, true)]
+    [InlineData(6, 1, 5, 5, false)]
+    [InlineData(19, 19, 20, 20, true)]
+    [InlineData(20, 20, 20, 20, false)]
+    public void Exist_ShouldReturnCorrectValue(int x, int y, int sizeX, int sizeY, bool expected)
     {
         // Arrange
-        var map = new SmallSquareMap(size);
+        var map = new SmallSquareMap(sizeX, sizeY);
         var point = new Point(x, y);
 
         // Act
@@ -55,7 +52,7 @@ public class SmallSquareMapTests
     public void Next_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
         // Arrange
-        var map = new SmallSquareMap(5);
+        var map = new SmallSquareMap(20 ,20);
         var point = new Point(x, y);
 
         // Act
@@ -75,7 +72,7 @@ public class SmallSquareMapTests
     public void NextDiagonal_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
         // Arrange
-        var map = new SmallSquareMap(5);
+        var map = new SmallSquareMap(20, 20);
         var point = new Point(x, y);
 
         // Act
