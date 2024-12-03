@@ -2,7 +2,7 @@
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
@@ -49,7 +49,7 @@ public abstract class Creature
         //Map.Next() == Position - no movement
         //Map.Move()
         Point nextPosition = Map.Next(Position, direction);
-        Map.Move(this, Position, nextPosition);
+        Map.Move((IMappable)this, Position, nextPosition);
         Position = nextPosition;
     }
     
